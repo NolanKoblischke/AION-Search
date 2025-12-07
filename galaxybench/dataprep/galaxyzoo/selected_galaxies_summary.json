@@ -1,0 +1,305 @@
+{
+  "total_galaxies_selected": 64,
+  "total_unique_paths": 21,
+  "total_confident_galaxies_found": 9586,
+  "galaxies_skipped_excluded": 0,
+  "galaxies_skipped_incomplete": 161631,
+  "paths": {
+    "smooth-or-featured_featured-or-disk_disk-edge-on_yes_edge-on-bulge_rounded_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:yes -> edge-on-bulge:rounded -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "0450p045-3931",
+        "0436p012-5176",
+        "0443p015-2126",
+        "1321p105-986",
+        "1272p090-4970"
+      ],
+      "indices": [
+        97,
+        167,
+        230,
+        683,
+        1103
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_round_merging_none": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:round -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "0451p012-7275",
+        "0441p007-8534",
+        "0446p005-888",
+        "1280p132-4109",
+        "1281p117-3378"
+      ],
+      "indices": [
+        138,
+        198,
+        248,
+        476,
+        483
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_in-between_merging_none": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:in-between -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "0453p005-1800",
+        "0438p012-4501",
+        "0456p012-1501",
+        "0446p002-6706",
+        "0446p010-783"
+      ],
+      "indices": [
+        148,
+        189,
+        192,
+        246,
+        276
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_yes_edge-on-bulge_none_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:yes -> edge-on-bulge:none -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "0438p010-6491",
+        "0276m007-1362",
+        "3311m030-3791",
+        "3261m072-2094",
+        "1798m005-4079"
+      ],
+      "indices": [
+        178,
+        50826,
+        56980,
+        61290,
+        71754
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_round_merging_merger": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:round -> merging:merger",
+      "count": 5,
+      "galaxy_ids": [
+        "0446p005-6585",
+        "3262m082-2154",
+        "2073m012-419",
+        "1863m022-3603",
+        "1963m030-75"
+      ],
+      "indices": [
+        257,
+        61299,
+        72041,
+        85421,
+        90159
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_in-between_merging_merger": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:in-between -> merging:merger",
+      "count": 5,
+      "galaxy_ids": [
+        "0448p012-243",
+        "1144p272-6157",
+        "1395p075-248",
+        "2236p065-6501",
+        "2277p077-3483"
+      ],
+      "indices": [
+        327,
+        20495,
+        22475,
+        43146,
+        47944
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_cigar-shaped_merging_none": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:cigar-shaped -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "1316p085-1903",
+        "1316p085-1904",
+        "1309p080-4495",
+        "1311p062-1339",
+        "1295p062-4904"
+      ],
+      "indices": [
+        679,
+        680,
+        1930,
+        1938,
+        2053
+      ]
+    },
+    "smooth-or-featured_artifact": {
+      "readable_path": "smooth-or-featured:artifact",
+      "count": 5,
+      "galaxy_ids": [
+        "1355p050-1072",
+        "1971p022-5288",
+        "1953p005-5019",
+        "1466p022-738",
+        "1500p050-9890"
+      ],
+      "indices": [
+        15206,
+        78468,
+        81369,
+        113413,
+        116497
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_2_bar_no_bulge-size_small_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:2 -> bar:no -> bulge-size:small -> merging:none",
+      "count": 5,
+      "galaxy_ids": [
+        "2269p137-2965",
+        "2319p072-1327",
+        "2021m007-5172",
+        "2041m015-4711",
+        "2078p027-464"
+      ],
+      "indices": [
+        26748,
+        46161,
+        69968,
+        70353,
+        73700
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_no_bar_no_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:no -> bar:no -> bulge-size:moderate -> merging:none",
+      "count": 4,
+      "galaxy_ids": [
+        "0258p000-4398",
+        "0381p002-8158",
+        "1398m002-8284",
+        "1438p025-7777"
+      ],
+      "indices": [
+        57712,
+        68567,
+        104159,
+        112954
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_3_bar_no_bulge-size_small_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:3 -> bar:no -> bulge-size:small -> merging:none",
+      "count": 2,
+      "galaxy_ids": [
+        "2305p047-1175",
+        "2255m085-1422"
+      ],
+      "indices": [
+        33930,
+        165244
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_no_bar_strong_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:no -> bar:strong -> bulge-size:moderate -> merging:none",
+      "count": 2,
+      "galaxy_ids": [
+        "0388m002-5550",
+        "2203m017-4645"
+      ],
+      "indices": [
+        68580,
+        76726
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_yes_edge-on-bulge_boxy_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:yes -> edge-on-bulge:boxy -> merging:none",
+      "count": 2,
+      "galaxy_ids": [
+        "0078p017-1530",
+        "1447p060-2024"
+      ],
+      "indices": [
+        83759,
+        128525
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_yes_edge-on-bulge_rounded_merging_merger": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:yes -> edge-on-bulge:rounded -> merging:merger",
+      "count": 2,
+      "galaxy_ids": [
+        "1565p042-2315",
+        "1710p250-1393"
+      ],
+      "indices": [
+        115631,
+        166587
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_more-than-4_bar_no_bulge-size_small_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:more-than-4 -> bar:no -> bulge-size:small -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "1353p070-3446"
+      ],
+      "indices": [
+        7546
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_2_bar_no_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:2 -> bar:no -> bulge-size:moderate -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "3293m077-424"
+      ],
+      "indices": [
+        52699
+      ]
+    },
+    "smooth-or-featured_smooth_how-rounded_in-between_merging_minor-disturbance": {
+      "readable_path": "smooth-or-featured:smooth -> how-rounded:in-between -> merging:minor-disturbance",
+      "count": 1,
+      "galaxy_ids": [
+        "0151m007-6153"
+      ],
+      "indices": [
+        74565
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_loose_spiral-arm-count_2_bar_no_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:loose -> spiral-arm-count:2 -> bar:no -> bulge-size:moderate -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "2056p040-1181"
+      ],
+      "indices": [
+        93200
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_medium_spiral-arm-count_2_bar_strong_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:medium -> spiral-arm-count:2 -> bar:strong -> bulge-size:moderate -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "2034p177-748"
+      ],
+      "indices": [
+        97724
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_cant-tell_bar_no_bulge-size_small_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:cant-tell -> bar:no -> bulge-size:small -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "1548p032-696"
+      ],
+      "indices": [
+        115585
+      ]
+    },
+    "smooth-or-featured_featured-or-disk_disk-edge-on_no_has-spiral-arms_yes_spiral-winding_tight_spiral-arm-count_cant-tell_bar_no_bulge-size_moderate_merging_none": {
+      "readable_path": "smooth-or-featured:featured-or-disk -> disk-edge-on:no -> has-spiral-arms:yes -> spiral-winding:tight -> spiral-arm-count:cant-tell -> bar:no -> bulge-size:moderate -> merging:none",
+      "count": 1,
+      "galaxy_ids": [
+        "3168m020-6381"
+      ],
+      "indices": [
+        168670
+      ]
+    }
+  }
+}

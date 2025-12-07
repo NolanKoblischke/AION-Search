@@ -1,0 +1,4 @@
+.env
+.DS_Store
+backup/
+prompt_optimization/gz_all_models

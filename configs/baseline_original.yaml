@@ -1,0 +1,29 @@
+# Multi-text baseline configuration with augmented descriptions - excluding benchmark galaxies
+batch_size: 8192
+num_epochs: 50
+learning_rate: 1e-4
+weight_decay: 0.05
+embedding_dim: 1024
+scheduler_eta_min: 5e-7
+gradient_clip_max_norm: 1.0
+use_mean_embeddings: true
+aion_embeddings: data/processed/galaxy_embeddings_unified.parquet
+scheduler_t_mult: 1
+
+train_ratio: 0.8               # fraction of samples used for training
+device:                        # leave empty -> script auto-detects (cuda / cpu)
+
+scheduler_t0: 50
+warmup_epochs: 10              # Linear warmup epochs
+
+save_checkpoint_frequency: 10   # checkpoint cadence in epochs
+
+log_level: INFO                # DEBUG | INFO | WARNING | ERROR
+aion_model: aion-base          # aion-base | aion-large | aion-xlarge
+
+# Multi-text training options
+use_multi_text: false           # Use augmented multi-text data
+text_sampling_strategy: original # original | summaries-only | random | round-robin
+
+# Benchmark exclusion
+exclude_crossmatch: data/experiments/crossmatch_results/crossmatch_results_20250806_230911.csv

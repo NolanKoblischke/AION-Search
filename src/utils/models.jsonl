@@ -1,0 +1,27 @@
+{"formatted_name": "Gemini 2.5 Flash Preview 05-20 No Thinking", "model_name": "gemini-2.5-flash-preview-05-20", "input_price": 0.15, "output_price": 0.60, "id": "gemini-2.5-flash-preview-05-20"}
+{"formatted_name": "Gemini 2.5 Flash Preview 05-20 Max Thinking", "model_name": "gemini-2.5-flash-preview-05-20", "input_price": 0.15, "output_price": 3.50, "thinking_budget": 24576, "id": "gemini-2.5-flash-preview-05-20-max-thinking"}
+{"formatted_name": "Gemini 2.0 Flash Lite", "model_name": "gemini-2.0-flash-lite", "input_price": 0.075, "output_price": 0.30, "thinking_budget": -1, "id": "gemini-2.0-flash-lite"}
+{"formatted_name": "Gemini 2.0 Flash", "model_name": "gemini-2.0-flash", "input_price": 0.1, "output_price": 0.40, "thinking_budget": -1, "id": "gemini-2.0-flash"}
+{"formatted_name": "Gemini 1.5 Flash", "model_name": "gemini-1.5-flash", "input_price": 0.1, "output_price": 0.40, "thinking_budget": -1, "id": "gemini-1.5-flash"}
+{"formatted_name": "Gemini 2.5 Pro Preview 05-06 Thinking", "model_name": "gemini-2.5-pro-preview-05-06", "input_price": 1.25, "output_price": 10.00, "thinking_budget": 24576, "id": "gemini-2.5-pro-preview-05-06-max-thinking"}
+{"formatted_name": "Gemini 2.5 Pro Preview 06-05 Thinking", "model_name": "gemini-2.5-pro-preview-06-05", "input_price": 1.25, "output_price": 10.00, "thinking_budget": 24576, "id": "gemini-2.5-pro-preview-06-05-max-thinking"}
+{"formatted_name": "GPT-4.1", "model_name": "gpt-4.1", "input_price": 2.00, "output_price": 8.00, "id": "gpt-4.1"}
+{"formatted_name": "GPT-4.5", "model_name": "gpt-4.5-preview", "input_price": 75.00, "output_price": 150.00, "id": "gpt-4.5"}
+{"formatted_name": "GPT-4o", "model_name": "gpt-4o", "input_price": 5.00, "output_price": 20.00, "id": "gpt-4o"}
+{"formatted_name": "GPT-4.1 Mini", "model_name": "gpt-4.1-mini", "input_price": 0.40, "output_price": 1.60, "id": "gpt-4.1-mini"}
+{"formatted_name": "o4-mini Reasoning Low", "model_name": "o4-mini", "input_price": 1.10, "output_price": 4.40, "reasoning_effort": "low", "id": "o4-mini-low-thinking"}
+{"formatted_name": "o4-mini Reasoning Medium", "model_name": "o4-mini", "input_price": 1.10, "output_price": 4.40, "reasoning_effort": "medium", "id": "o4-mini-medium-thinking"}
+{"formatted_name": "o4-mini Reasoning High", "model_name": "o4-mini", "input_price": 1.10, "output_price": 4.40, "reasoning_effort": "high", "id": "o4-mini-high-thinking"}
+{"formatted_name": "o3 Reasoning Low", "model_name": "o3", "input_price": 2.0, "output_price": 8.00, "reasoning_effort": "low", "id": "o3-low-thinking"}
+{"formatted_name": "o3 Reasoning High", "model_name": "o3", "input_price": 2.0, "output_price": 8.00, "reasoning_effort": "high", "id": "o3-high-thinking"}
+{"formatted_name": "o3 Reasoning Medium", "model_name": "o3", "input_price": 2.0, "output_price": 8.00, "reasoning_effort": "medium", "id": "o3-medium-thinking"}
+{"formatted_name": "GPT-4.1 Nano", "model_name": "gpt-4.1-nano", "input_price": 0.10, "output_price": 0.40, "id": "gpt-4.1-nano"}
+{"formatted_name": "GPT-5 Reasoning Low", "model_name": "gpt-5", "input_price": 1.25, "output_price": 10.0, "reasoning_effort": "low", "id": "gpt-5-low-thinking"}
+{"formatted_name": "GPT-5 Reasoning Medium", "model_name": "gpt-5", "input_price": 1.25, "output_price": 10.0, "reasoning_effort": "medium", "id": "gpt-5-medium-thinking"}
+{"formatted_name": "GPT-5 Reasoning High", "model_name": "gpt-5", "input_price": 1.25, "output_price": 10.0, "reasoning_effort": "high", "id": "gpt-5-high-thinking"}
+{"formatted_name": "GPT-5 Mini Reasoning Low", "model_name": "gpt-5-mini", "input_price": 0.25, "output_price": 2.0, "reasoning_effort": "low", "id": "gpt-5-mini-low-thinking"}
+{"formatted_name": "GPT-5 Mini Reasoning Medium", "model_name": "gpt-5-mini", "input_price": 0.25, "output_price": 2.0, "reasoning_effort": "medium", "id": "gpt-5-mini-medium-thinking"}
+{"formatted_name": "GPT-5 Mini Reasoning High", "model_name": "gpt-5-mini", "input_price": 0.25, "output_price": 2.0, "reasoning_effort": "high", "id": "gpt-5-mini-high-thinking"}
+{"formatted_name": "GPT-5 Nano Reasoning Low", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "low", "id": "gpt-5-nano-low-thinking"}
+{"formatted_name": "GPT-5 Nano Reasoning Medium", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "medium", "id": "gpt-5-nano-medium-thinking"}
+{"formatted_name": "GPT-5 Nano Reasoning High", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "high", "id": "gpt-5-nano-high-thinking"}

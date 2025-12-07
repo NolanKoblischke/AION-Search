@@ -1,0 +1,7 @@
+Analyze this astronomical image and provide a detailed description, assuming the reader has domain expertise and the description will be reviewed by astrophysicists.
+
+**1. Morphology:** Describe a detailed morphological classification of the main object(s) (e.g., spiral, elliptical, irregular, merging system, etc.).
+**2. Prominent Features & Characteristics:** Detail specific astronomical features observed, for example: spiral arms, bars, dust lanes, star-forming regions, tidal features, merger remnants, foreground stars, lensing effects, etc. Mention these features if and only if they are present in the image. If they are not present, do not mention them. The features mentioned here were just examples, state any feature you believe astrophysicists would be interested in. For each feature, describe its key characteristics (e.g., morphology, extent, brightness, orientation, interaction with other components, physical phenomena occurring, etc.).
+**3. Additional Context & Interpretation:** Include any further observational details or astrophysical interpretations.
+
+Only focus on the center object(s) in the image. Keep your response under 300 words.
