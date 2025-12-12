@@ -1,5 +1,11 @@
 # AION-Search
 
+[![arXiv](https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b.svg)](https://arxiv.org)
+[![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://aion-search.github.io)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-HuggingFace-yellow.svg)](https://huggingface.co/collections/astronolan/aion-search)
+[![Demo](https://img.shields.io/badge/%F0%9F%9A%80%20Demo-HuggingFace-blue.svg)](https://astronolan-aion-search.hf.space/)
+[![Citation](https://img.shields.io/badge/Citation-BibTeX-orange.svg)](#citation)
+
 ### Note: Improved documentation will be available for the official release in later December.
 
 This repository contains the implementation of "Why wait for human annotations when you have AI? Semantic searching scientific images with synthetic labels". The codebase demonstrates how Vision-Language Models can generate descriptions of galaxy images that serve as training data for a semantic search engine, enabling natural language queries over 140 million astronomical images without human annotation.
@@ -39,3 +45,17 @@ Figure 3 presents our re-ranking results, showing how VLMs can verify and improv
 The main experiment script, `rerank_multi_experiments.py`, first uses AION-Search to retrieve the top 1000 candidates for gravitational lenses. It then prompts different VLMs to score each candidate on a 1-10 scale based on whether they show signs of lensing. For the sampling experiments, the script generates multiple independent scores per image and averages them. The results demonstrate that both larger models and increased sampling improve performance, nearly doubling the number of confirmed lenses in the top 100 results.
 
 The visualization script `plot_rerank_vs_baseline.py` creates the paper's Figure 3, showing both the performance scaling and examples of top-ranked lenses with excerpts from the VLM explanations.
+
+## Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@inproceedings{koblischke2025why,
+    title={Why wait for human annotations when you have AI? Semantic searching scientific images with synthetic labels},
+    author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
+    booktitle={NeurIPS 2025 AI for Science Workshop},
+    year={2025},
+    url={https://openreview.net/forum?id=j8Qxvb37HQ}
+}
+```
