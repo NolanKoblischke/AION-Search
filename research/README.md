@@ -1,15 +1,13 @@
 # Research Code
 
-⚠️ **This code is provided as a reference implementation only.**
-
-It requires internal datasets and infrastructure that have not been publicly released. The code will not run without significant modification.
+**This code is provided as a reference implementation only.**
 
 For runnable code, see the main [`aionsearch/`](../aionsearch/) package and [`examples/`](../examples/) directory.
 
 
 ## Paper Implementation Overview
 
-The paper presents three main contributions, each corresponding to different parts of the codebase. First, we evaluate whether VLMs can accurately describe galaxy images by benchmarking them against human annotations from Galaxy Zoo. Second, we use these VLM-generated descriptions to train a contrastive model that aligns image embeddings with text embeddings. Third, we demonstrate that VLM re-ranking can significantly improve retrieval performance for rare astronomical phenomena.
+The paper presents three main contributions, each corresponding to different parts of the codebase. First, we evaluate whether Vision-Language Models (VLMs, e.g. GPT-4) can accurately describe galaxy images by benchmarking them against human annotations from Galaxy Zoo. Second, we use these VLM-generated descriptions to train a contrastive model that aligns image embeddings with text embeddings. Third, we demonstrate that VLM re-ranking can significantly improve retrieval performance for rare astronomical phenomena.
 
 ## VLM Benchmarking
 
