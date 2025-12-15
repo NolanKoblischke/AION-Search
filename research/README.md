@@ -11,11 +11,15 @@ The paper presents three main contributions, each corresponding to different par
 
 ## VLM Benchmarking
 
+<img src="figures/Figure1.png" alt="Figure 1: VLM Benchmarking" width="70%">
+
 Figure 1 shows the accuracy-cost trade-off for 13 different Vision-Language Models on our Galaxy Zoo benchmark. This analysis is implemented in `prompt_optimization/plot_performance_vs_cost.py`, which reads evaluation results from JSONL files containing model responses and their associated costs. The script loads pricing information from `src/utils/models.jsonl` and calculates the cost to caption 100,000 images for each model.
 
 The benchmark itself evaluates VLMs on 64 carefully curated galaxy images from Galaxy Zoo DECaLS. The curation process, implemented in `galaxybench/dataprep/galaxyzoo/prep.py`, selects images with strong consensus among human annotators and ensures diversity across morphological types. The evaluation pipeline consists of three scripts in `galaxybench/eval/combined/`: first, `generate_descriptions.py` prompts VLMs to describe each galaxy image using the optimized prompt from `prompt_optimization/prompts/general_promptv4.txt`. Then `judge.py` uses Gemini-2.5-Flash to extract Galaxy Zoo decision tree answers from these free-form descriptions. Finally, `print_score.py` compares these extracted answers against the human consensus to compute accuracy scores.
 
 ## Training Pipeline
+
+<img src="figures/description.png" alt="Description generation with gpt-4.1-mini." width="50%">
 
 The core contribution of our paper is the AION-Search model, which enables semantic search over astronomical images. The training pipeline, implemented as a sequence of numbered scripts in `src/`, transforms unlabeled galaxy images into a searchable semantic space through six stages.
 
@@ -27,6 +31,10 @@ The preparation phase concludes with `05_generate_unified_embeddings.py`, which 
 
 ## Evaluation Infrastructure
 
+<img src="figures/Figure2.png" alt="Figure 2: AION-Search Results" width="70%">
+
+<img src="figures/Table1.png" alt="Table 1: Performance Comparison" width="40%">
+
 The paper's main results comparing AION-Search to baselines appear in Figure 2 and the accompanying table. These evaluations are implemented in `src/experiments/aion_table4/`, which contains separate scripts for different target phenomena. The evaluation follows AION's established protocol, using nDCG@10 to measure retrieval quality on datasets with varying rarity: spiral galaxies (26% of dataset), mergers (2%), and gravitational lenses (0.1%).
 
 For spirals and mergers, the evaluation uses Galaxy Zoo DECaLS labels where each image has a relevance score equal to the fraction of volunteers identifying that feature. The script `eval_table4_gz.py` loads the trained AION-Search model, generates embeddings for text queries like "visible spiral arms" and "merging", then computes retrieval metrics against the labeled dataset.
@@ -34,6 +42,8 @@ For spirals and mergers, the evaluation uses Galaxy Zoo DECaLS labels where each
 Gravitational lens evaluation, implemented in `eval_table4_lens.py`, presents a more challenging test case due to their extreme rarity. The evaluation dataset combines confirmed lenses from published catalogs with a large set of non-lenses, assigning binary relevance scores. The dramatic improvement of AION-Search over similarity-based methods on this task demonstrates the value of semantic search for finding rare phenomena.
 
 ## Re-ranking Experiments
+
+<img src="figures/Figure3.png" alt="Figure 3: Re-ranking Results" width="70%">
 
 Figure 3 presents our re-ranking results, showing how VLMs can verify and improve initial search results. The implementation in `src/experiments/rerank/` explores two dimensions of scaling: model capacity (from GPT-4.1-nano through GPT-4.1) and inference-time compute through average sampling.
 
