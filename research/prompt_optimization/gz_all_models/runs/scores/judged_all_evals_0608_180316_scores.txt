@@ -1,0 +1,72 @@
+Mean Scores per Model per Evaluation
+==================================================
+
+Model: Gemini 2.5 Pro Preview 06-05 Thinking
+---------------------------------------------
+  galaxyzoo: 0.4733 (n=64)
+    └─ bar: 0.2632 (n=19)
+      └─ Error breakdown (n=14 wrong):
+         • Wrong type: 14.3% (2)
+         • Judge said 'not-mentioned': 85.7% (12)
+    └─ bulge-size: 0.0526 (n=19)
+      └─ Error breakdown (n=18 wrong):
+         • Wrong type: 50.0% (9)
+         • Judge said 'not-mentioned': 50.0% (9)
+    └─ disk-edge-on: 0.7576 (n=33)
+      └─ Error breakdown (n=8 wrong):
+         • Wrong type: 25.0% (2)
+         • Judge said 'not-mentioned': 75.0% (6)
+    └─ edge-on-bulge: 0.3571 (n=14)
+      └─ Error breakdown (n=9 wrong):
+         • Wrong type: 66.7% (6)
+         • Judge said 'not-mentioned': 33.3% (3)
+    └─ has-spiral-arms: 0.4737 (n=19)
+      └─ Error breakdown (n=10 wrong):
+         • Wrong type: 30.0% (3)
+         • Judge said 'not-mentioned': 70.0% (7)
+    └─ how-rounded: 0.1538 (n=26)
+      └─ Error breakdown (n=22 wrong):
+         • Wrong type: 18.2% (4)
+         • Judge said 'not-mentioned': 81.8% (18)
+    └─ merging: 0.7119 (n=59)
+      └─ Error breakdown (n=17 wrong):
+         • Wrong type: 100.0% (17)
+    └─ smooth-or-featured: 0.6250 (n=64)
+      └─ Error breakdown (n=24 wrong):
+         • Wrong type: 100.0% (24)
+    └─ spiral-arm-count: 0.0000 (n=13)
+      └─ Error breakdown (n=13 wrong):
+         • Wrong type: 23.1% (3)
+         • Judge said 'not-mentioned': 76.9% (10)
+    └─ spiral-winding: 0.0769 (n=13)
+      └─ Error breakdown (n=12 wrong):
+         • Wrong type: 25.0% (3)
+         • Judge said 'not-mentioned': 75.0% (9)
+    Per-answer breakdown:
+      └─ bar: no: 0.1875 (n=16)
+      └─ bar: strong: 0.6667 (n=3)
+      └─ bulge-size: moderate: 0.0000 (n=10)
+      └─ bulge-size: small: 0.1111 (n=9)
+      └─ disk-edge-on: no: 0.6316 (n=19)
+      └─ disk-edge-on: yes: 0.9286 (n=14)
+      └─ edge-on-bulge: boxy: 0.0000 (n=2)
+      └─ edge-on-bulge: none: 0.0000 (n=5)
+      └─ edge-on-bulge: rounded: 0.7143 (n=7)
+      └─ has-spiral-arms: no: 0.5000 (n=6)
+      └─ has-spiral-arms: yes: 0.4615 (n=13)
+      └─ how-rounded: cigar-shaped: 0.0000 (n=5)
+      └─ how-rounded: in-between: 0.2727 (n=11)
+      └─ how-rounded: round: 0.1000 (n=10)
+      └─ merging: merger: 1.0000 (n=12)
+      └─ merging: minor-disturbance: 0.0000 (n=1)
+      └─ merging: none: 0.6522 (n=46)
+      └─ smooth-or-featured: artifact: 0.0000 (n=5)
+      └─ smooth-or-featured: featured-or-disk: 0.8788 (n=33)
+      └─ smooth-or-featured: smooth: 0.4231 (n=26)
+      └─ spiral-arm-count: 2: 0.0000 (n=8)
+      └─ spiral-arm-count: 3: 0.0000 (n=2)
+      └─ spiral-arm-count: cant-tell: 0.0000 (n=2)
+      └─ spiral-arm-count: more-than-4: 0.0000 (n=1)
+      └─ spiral-winding: loose: 0.0000 (n=1)
+      └─ spiral-winding: medium: 0.0000 (n=1)
+      └─ spiral-winding: tight: 0.0909 (n=11)

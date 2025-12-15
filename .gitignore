@@ -3,3 +3,7 @@
 backup/
 prompt_optimization/gz_all_models
 **/__pycache__
+.venv
+.claude
+scr/
+uv.lock

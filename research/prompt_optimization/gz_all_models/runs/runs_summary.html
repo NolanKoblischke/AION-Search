@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Benchmark - Runs Summary</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .summary {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        th:hover {
+            background-color: #2c3e50;
+        }
+        th.sortable::after {
+            content: ' ↕️';
+            font-size: 0.8em;
+        }
+        th.sort-asc::after {
+            content: ' ↑';
+            color: #3498db;
+        }
+        th.sort-desc::after {
+            content: ' ↓';
+            color: #3498db;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #e8f4f8;
+        }
+        .score {
+            font-weight: bold;
+            padding: 6px 8px;
+            border-radius: 4px;
+        }
+        .agg-score {
+            border: 2px solid #7f8c8d;
+            font-weight: 900;
+        }
+        .filename {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            background-color: #f1f2f6;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .model-name {
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Galaxy Benchmark - Runs Summary</h1>
+        
+        <div class="summary">
+            <strong>43</strong> evaluation runs analyzed
+        </div>
+        
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th class="sortable" onclick="sortTable(0)">Timestamp</th>
+                    <th class="sortable" onclick="sortTable(1)">Prompt Filename</th>
+                    <th class="sortable" onclick="sortTable(2)">Plotting Script</th>
+                    <th class="sortable" onclick="sortTable(3)">Model</th>
+                    <th class="sortable" onclick="sortTable(4)">GZ Accuracy</th>
+                    <th class="sortable" onclick="sortTable(5)">Shell F1</th>
+                    <th class="sortable" onclick="sortTable(6)">Stream F1</th>
+                    <th class="sortable" onclick="sortTable(7)">Avg Tidal F1</th>
+                    <th class="sortable" onclick="sortTable(8)">Shell FP/Total (TP)</th>
+                    <th class="sortable" onclick="sortTable(9)">Stream FP/Total (TP)</th>
+                    <th class="sortable" onclick="sortTable(10)">Lens F1</th>
+                    <th class="sortable" onclick="sortTable(11)">Lens FP/Total (TP)</th>
+                    <th class="sortable" onclick="sortTable(12)">Agg. Score</th>
+                    <th class="sortable" onclick="sortTable(13)">Agg. Score 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td><span class="timestamp">0609_105011</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o3 Reasoning High</span></td>
+                    <td class="score" data-intensity="0.944">0.531</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.944">0.177</td>
+                    <td class="score agg-score" data-intensity="0.944">0.212</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_104629</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.5</span></td>
+                    <td class="score" data-intensity="0.940">0.528</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.940">0.176</td>
+                    <td class="score agg-score" data-intensity="0.940">0.211</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_104557</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o3 Reasoning High</span></td>
+                    <td class="score" data-intensity="0.998">0.561</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.998">0.187</td>
+                    <td class="score agg-score" data-intensity="0.998">0.224</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_104036</span></td>
+                    <td><span class="filename">Unknown</span></td>
+                    <td><span class="filename">Unknown</span></td>
+                    <td><span class="model-name">Unknown</span></td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.000">0.000</td>
+                    <td class="score agg-score" data-intensity="0.000">0.000</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_104002</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o3 Reasoning Low</span></td>
+                    <td class="score" data-intensity="1.000">0.562</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="1.000">0.187</td>
+                    <td class="score agg-score" data-intensity="1.000">0.225</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_103625</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o3 Reasoning Low</span></td>
+                    <td class="score" data-intensity="0.958">0.538</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.958">0.179</td>
+                    <td class="score agg-score" data-intensity="0.958">0.215</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_103440</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o4-mini Reasoning High</span></td>
+                    <td class="score" data-intensity="0.802">0.451</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.802">0.150</td>
+                    <td class="score agg-score" data-intensity="0.802">0.180</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_103121</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o4-mini Reasoning High</span></td>
+                    <td class="score" data-intensity="0.829">0.465</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.829">0.155</td>
+                    <td class="score agg-score" data-intensity="0.829">0.186</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_102916</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o4-mini Reasoning Low</span></td>
+                    <td class="score" data-intensity="0.822">0.462</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.822">0.154</td>
+                    <td class="score agg-score" data-intensity="0.822">0.185</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_102650</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">OpenAI o4-mini Reasoning Low</span></td>
+                    <td class="score" data-intensity="0.789">0.444</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.789">0.148</td>
+                    <td class="score agg-score" data-intensity="0.789">0.177</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_102325</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Nano</span></td>
+                    <td class="score" data-intensity="0.664">0.373</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.664">0.124</td>
+                    <td class="score agg-score" data-intensity="0.664">0.149</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_102036</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Nano</span></td>
+                    <td class="score" data-intensity="0.730">0.410</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.730">0.137</td>
+                    <td class="score agg-score" data-intensity="0.730">0.164</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_101752</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Nano</span></td>
+                    <td class="score" data-intensity="0.739">0.415</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.739">0.138</td>
+                    <td class="score agg-score" data-intensity="0.739">0.166</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_101530</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Mini</span></td>
+                    <td class="score" data-intensity="0.881">0.495</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.881">0.165</td>
+                    <td class="score agg-score" data-intensity="0.881">0.198</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_101325</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Mini</span></td>
+                    <td class="score" data-intensity="0.893">0.502</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.893">0.167</td>
+                    <td class="score agg-score" data-intensity="0.893">0.201</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_101118</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1 Mini</span></td>
+                    <td class="score" data-intensity="0.899">0.505</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.899">0.168</td>
+                    <td class="score agg-score" data-intensity="0.899">0.202</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_100727</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1</span></td>
+                    <td class="score" data-intensity="0.926">0.520</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.926">0.173</td>
+                    <td class="score agg-score" data-intensity="0.926">0.208</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_100409</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1</span></td>
+                    <td class="score" data-intensity="0.924">0.519</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.924">0.173</td>
+                    <td class="score agg-score" data-intensity="0.924">0.208</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_100044</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4.1</span></td>
+                    <td class="score" data-intensity="0.862">0.484</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.862">0.161</td>
+                    <td class="score agg-score" data-intensity="0.862">0.194</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_095836</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4o</span></td>
+                    <td class="score" data-intensity="0.769">0.432</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.769">0.144</td>
+                    <td class="score agg-score" data-intensity="0.769">0.173</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_095618</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4o</span></td>
+                    <td class="score" data-intensity="0.780">0.438</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.780">0.146</td>
+                    <td class="score agg-score" data-intensity="0.780">0.175</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0609_095359</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">GPT-4o</span></td>
+                    <td class="score" data-intensity="0.736">0.413</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.736">0.138</td>
+                    <td class="score agg-score" data-intensity="0.736">0.165</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_182204</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 05-06 Thinking</span></td>
+                    <td class="score" data-intensity="0.778">0.437</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.778">0.146</td>
+                    <td class="score agg-score" data-intensity="0.778">0.175</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_181805</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 05-06 Thinking</span></td>
+                    <td class="score" data-intensity="0.860">0.483</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.860">0.161</td>
+                    <td class="score agg-score" data-intensity="0.860">0.193</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_181424</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 05-06 Thinking</span></td>
+                    <td class="score" data-intensity="0.831">0.467</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.831">0.156</td>
+                    <td class="score agg-score" data-intensity="0.831">0.187</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_181044</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 06-05 Thinking</span></td>
+                    <td class="score" data-intensity="0.816">0.458</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.816">0.153</td>
+                    <td class="score agg-score" data-intensity="0.816">0.183</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_180703</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 06-05 Thinking</span></td>
+                    <td class="score" data-intensity="0.803">0.451</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.803">0.150</td>
+                    <td class="score agg-score" data-intensity="0.803">0.180</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_180316</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Pro Preview 06-05 Thinking</span></td>
+                    <td class="score" data-intensity="0.842">0.473</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.842">0.158</td>
+                    <td class="score agg-score" data-intensity="0.842">0.189</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_180153</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash Lite</span></td>
+                    <td class="score" data-intensity="0.648">0.364</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.648">0.121</td>
+                    <td class="score agg-score" data-intensity="0.648">0.146</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_180036</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash Lite</span></td>
+                    <td class="score" data-intensity="0.739">0.415</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.739">0.138</td>
+                    <td class="score agg-score" data-intensity="0.739">0.166</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_175906</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash Lite</span></td>
+                    <td class="score" data-intensity="0.579">0.326</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.579">0.109</td>
+                    <td class="score agg-score" data-intensity="0.579">0.130</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_175613</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 Max Thinking</span></td>
+                    <td class="score" data-intensity="0.762">0.428</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.762">0.143</td>
+                    <td class="score agg-score" data-intensity="0.762">0.171</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_175327</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 Max Thinking</span></td>
+                    <td class="score" data-intensity="0.825">0.464</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.825">0.155</td>
+                    <td class="score agg-score" data-intensity="0.825">0.185</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_175046</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 Max Thinking</span></td>
+                    <td class="score" data-intensity="0.784">0.441</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.784">0.147</td>
+                    <td class="score agg-score" data-intensity="0.784">0.176</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160900</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 1.5 Flash</span></td>
+                    <td class="score" data-intensity="0.724">0.407</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.724">0.136</td>
+                    <td class="score agg-score" data-intensity="0.724">0.163</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160737</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 1.5 Flash</span></td>
+                    <td class="score" data-intensity="0.706">0.396</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.706">0.132</td>
+                    <td class="score agg-score" data-intensity="0.706">0.159</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160621</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash</span></td>
+                    <td class="score" data-intensity="0.650">0.365</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.650">0.122</td>
+                    <td class="score agg-score" data-intensity="0.650">0.146</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160502</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash</span></td>
+                    <td class="score" data-intensity="0.698">0.392</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.698">0.131</td>
+                    <td class="score agg-score" data-intensity="0.698">0.157</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160321</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 No Thinking</span></td>
+                    <td class="score" data-intensity="0.826">0.464</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.826">0.155</td>
+                    <td class="score agg-score" data-intensity="0.826">0.186</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_160132</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 No Thinking</span></td>
+                    <td class="score" data-intensity="0.801">0.450</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.801">0.150</td>
+                    <td class="score agg-score" data-intensity="0.801">0.180</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_155547</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 1.5 Flash</span></td>
+                    <td class="score" data-intensity="0.648">0.364</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.648">0.121</td>
+                    <td class="score agg-score" data-intensity="0.648">0.146</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_155431</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.0 Flash</span></td>
+                    <td class="score" data-intensity="0.692">0.389</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.692">0.130</td>
+                    <td class="score agg-score" data-intensity="0.692">0.155</td>
+                </tr>
+                <tr>
+                    <td><span class="timestamp">0608_155236</span></td>
+                    <td><span class="filename">criteria_less_prompt.txt</span></td>
+                    <td><span class="filename">default_plot</span></td>
+                    <td><span class="model-name">Gemini 2.5 Flash Preview 05-20 No Thinking</span></td>
+                    <td class="score" data-intensity="0.802">0.451</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score" data-intensity="0.000">0.000</td>
+                    <td class="score" data-intensity="1.000">N/A</td>
+                    <td class="score agg-score" data-intensity="0.802">0.150</td>
+                    <td class="score agg-score" data-intensity="0.802">0.180</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let currentSort = { column: -1, direction: 'asc' };
+
+        function sortTable(columnIndex) {
+            const table = document.getElementById('leaderboard');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            if (currentSort.column === columnIndex) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.direction = 'asc';
+                currentSort.column = columnIndex;
+            }
+            
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+            
+            const header = table.querySelectorAll('th')[columnIndex];
+            header.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+            
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+                
+                let result = 0;
+                
+                if (columnIndex >= 4 && columnIndex <= 13) {
+                    // Handle FP/Total format for columns 8, 9, and 11
+                    if (columnIndex === 8 || columnIndex === 9 || columnIndex === 11) {
+                        const aRatio = aValue.includes('/') ? parseFloat(aValue.split('/')[0]) / parseFloat(aValue.split('/')[1]) : 0;
+                        const bRatio = bValue.includes('/') ? parseFloat(bValue.split('/')[0]) / parseFloat(bValue.split('/')[1]) : 0;
+                        result = aRatio - bRatio;
+                    } else {
+                        const aNum = parseFloat(aValue) || 0;
+                        const bNum = parseFloat(bValue) || 0;
+                        result = aNum - bNum;
+                    }
+                } else {
+                    result = aValue.localeCompare(bValue);
+                }
+                
+                return currentSort.direction === 'asc' ? result : -result;
+            });
+            
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        function applyRedToGreenColor(intensity) {
+            // Muted red to green color scheme
+            // Red: #c0392b (muted red), Green: #27ae60 (muted green)
+            const red = [192, 57, 43];    // Muted red
+            const green = [39, 174, 96];  // Muted green
+            
+            const r = Math.round(red[0] + (green[0] - red[0]) * intensity);
+            const g = Math.round(red[1] + (green[1] - red[1]) * intensity);
+            const b = Math.round(red[2] + (green[2] - red[2]) * intensity);
+            
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply red-to-green color scheme based on data-intensity
+            const scoreCells = document.querySelectorAll('.score');
+            scoreCells.forEach(cell => {
+                const intensity = parseFloat(cell.getAttribute('data-intensity')) || 0;
+                const backgroundColor = applyRedToGreenColor(intensity);
+                cell.style.backgroundColor = backgroundColor;
+                
+                // Add text color for better contrast
+                if (intensity > 0.5) {
+                    cell.style.color = 'white';
+                } else {
+                    cell.style.color = 'black';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
