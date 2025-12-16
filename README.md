@@ -16,7 +16,7 @@ Try the live web demo: [AION-Search App](https://astronolan-aion-search.hf.space
 More details at: [Project Page](https://aion-search.github.io/)
 
 📦 **Explore Our Datasets**  
-Access all AION-Search data products (embeddings and captions): [HuggingFace Datasets](https://huggingface.co/collections/astronolan/aion-search)
+Access all data products (embeddings and captions): [HuggingFace Datasets](https://huggingface.co/collections/astronolan/aion-search)
 
 ## Quick Start
 
@@ -73,11 +73,13 @@ See [`examples/quick_start.ipynb`](examples/quick_start.ipynb) for a complete wa
 If you find this work useful, please cite:
 
 ```bibtex
-@inproceedings{koblischke2025semantic,
-    title={Semantic search for 100M+ galaxy images using AI-generated captions},
-    author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
-    booktitle={NeurIPS 2025 AI for Science Workshop},
-    year={2025},
-    url={https://openreview.net/forum?id=j8Qxvb37HQ}
+@misc{koblischke2025semantic,
+      title={Semantic search for 100M+ galaxy images using AI-generated captions}, 
+      author={Nolan Koblischke and Liam Parker and Francois Lanusse and Irina Espejo Morales and Jo Bovy and Shirley Ho},
+      year={2025},
+      eprint={2512.11982},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2512.11982}, 
 }
 ```
