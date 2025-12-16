@@ -1,6 +1,6 @@
 # AION-Search: Semantic search for galaxy images using AI-generated captions
 
-[![arXiv](https://img.shields.io/badge/arXiv-Coming%20Soon-b31b1b.svg)](https://arxiv.org/abs/2512.11982)
+[![arXiv](https://img.shields.io/badge/arXiv-2512.11982-b31b1b.svg)](https://arxiv.org/abs/2512.11982)
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://aion-search.github.io)
 [![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20Dataset-HuggingFace-yellow.svg)](https://huggingface.co/collections/astronolan/aion-search)
 [![Demo](https://img.shields.io/badge/%F0%9F%9A%80%20Demo-HuggingFace-blue.svg)](https://astronolan-aion-search.hf.space/)
