@@ -25,3 +25,7 @@
 {"formatted_name": "GPT-5 Nano Reasoning Low", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "low", "id": "gpt-5-nano-low-thinking"}
 {"formatted_name": "GPT-5 Nano Reasoning Medium", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "medium", "id": "gpt-5-nano-medium-thinking"}
 {"formatted_name": "GPT-5 Nano Reasoning High", "model_name": "gpt-5-nano", "input_price": 0.05, "output_price": 0.4, "reasoning_effort": "high", "id": "gpt-5-nano-high-thinking"}
+{"formatted_name": "Qwen3 VL 235B Instruct", "model_name": "qwen/qwen3-vl-235b-a22b-instruct", "input_price": 0.45, "output_price": 3.50, "id": "qwen/qwen3-vl-235b-a22b-instruct"}
+{"formatted_name": "Qwen3 VL 235B Thinking", "model_name": "qwen/qwen3-vl-235b-a22b-thinking", "input_price": 0.45, "output_price": 3.50, "id": "qwen/qwen3-vl-235b-a22b-thinking"}
+{"formatted_name": "Qwen3 VL 30B Instruct", "model_name": "qwen/qwen3-vl-30b-a3b-instruct", "input_price": 0.15, "output_price": 0.60, "id": "qwen/qwen3-vl-30b-a3b-instruct"}
+{"formatted_name": "Qwen3 VL 8B Instruct", "model_name": "qwen/qwen3-vl-8b-instruct", "input_price": 0.08, "output_price": 0.50, "id": "qwen/qwen3-vl-8b-instruct"}

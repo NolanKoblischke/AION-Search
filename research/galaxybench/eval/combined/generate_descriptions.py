@@ -1,4 +1,4 @@
-"""Unified description generation and judging script for all evaluation types."""
+"""Generate and judge Galaxy Zoo description-benchmark outputs."""
 
 import json
 import time
@@ -16,7 +16,7 @@ import galaxybench.eval.combined
 from galaxybench.eval.utils_gemini import generate as generate_gemini
 from galaxybench.eval.utils_openai import generate as generate_openai
 
-from galaxybench.eval.combined.config import get_eval_config, list_eval_types
+from galaxybench.eval.combined.config import get_eval_config
 
 
 def load_models():
@@ -268,13 +268,13 @@ def load_prompt(prompt_arg):
 
 def generate_and_judge_unified(eval_types: list, prompt: str, plot_script: str, 
                               judge_model: str = "gpt-4o-mini", cores: int = 10, output_dir: str = "eval/runs", plot_dir: str = "plots", models: list = None, precontext_parts=None):
-    """Generate galaxy descriptions and judge them for all specified evaluation types.
+    """Generate galaxy descriptions and judge them for the Galaxy Zoo benchmark.
     
-    This unified function replaces the previous multi-step process and directly produces
-    the final judged_all_evals_timestamp.jsonl file.
+    This function directly produces the final judged_all_evals_timestamp.jsonl file.
     
     Args:
-        eval_types: List of evaluation types to process
+        eval_types: List of evaluation types to process; this public release supports
+            the paper-facing "galaxyzoo" benchmark.
         prompt: Prompt to use for generation (string or path to .txt file)
         plot_script: Path to the plotting script containing plot_decals function
         judge_model: Model to use for judging (default: gpt-4o-mini). Examples: gpt-4o-mini, o4-mini, gemini-2.5-flash-preview-05-20
@@ -421,8 +421,6 @@ def generate_and_judge_unified(eval_types: list, prompt: str, plot_script: str,
                 eval_type = "unknown"
                 if 'decision_tree' in record:
                     eval_type = "galaxyzoo"
-                elif 'tidal_info' in record:
-                    eval_type = "tidal"
                 
                 eval_type_counts[eval_type] = eval_type_counts.get(eval_type, 0) + 1
                 

@@ -88,19 +88,13 @@ class EvalConfig(ABC):
         """Get additional sort options specific to this eval type."""
         return []  # Default: no additional sort options
 
-    def get_comparison_function_name(self) -> str:
-        """Get the name of the JavaScript function used to create comparison displays."""
-        return "createGenericComparison"  # Default function name
-    
     @property
-    def js_file(self) -> str:
-        """Path to the external JavaScript file for this config."""
-        return "display_config/base.js"
+    def js_file(self) -> Optional[str]:
+        """Optional JavaScript display file for this config."""
+        return None
     
     def get_comparison_javascript(self) -> str:
-        """Get JavaScript code for creating eval-specific comparison displays."""
-        # This method is kept for backward compatibility but will be replaced
-        # by loading from the external JS file
+        """Optional JavaScript code for creating eval-specific comparison displays."""
         return ""
 
 
@@ -154,19 +148,13 @@ class AllEvalConfig(EvalConfig):
             {"value": "volunteer-path-length-short", "label": "Path Length ↑"}
         ]
     
-    def get_comparison_function_name(self) -> str:
-        return "createAllEvalComparison"
-    
     @property
-    def js_file(self) -> str:
-        """Path to the external JavaScript file for combined display."""
-        # For AllEvalConfig, we'll need to load multiple JS files
-        return None  # Special handling needed for multiple files
+    def js_file(self) -> Optional[str]:
+        """Optional JavaScript display file for this config."""
+        return None
     
     def get_comparison_javascript(self) -> str:
-        """Get JavaScript code for creating eval-specific comparison displays."""
-        # This method is kept for backward compatibility but will be replaced
-        # by loading from the external JS files
+        """Optional JavaScript code for creating eval-specific comparison displays."""
         return ""
 
 

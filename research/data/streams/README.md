@@ -1,0 +1,11 @@
+Atkinson et al. (2013) -- https://arxiv.org/abs/1301.4275
+Hood et al. (2018) -- https://arxiv.org/abs/1803.05447
+Paudel et al. (2018) -- https://arxiv.org/abs/1807.07195
+Martinez-Delgado et al. (2023) -- https://arxiv.org/abs/2104.06071
+Miro-Carretero et al. (2023) -- https://arxiv.org/abs/2209.08636
+Skryabina et al. (2024) -- https://arxiv.org/abs/2406.13496
+Miro-Carretero et al. (2024) -- https://arxiv.org/abs/2407.20483
+Pippert et al. (2025) -- https://arxiv.org/abs/2502.14531
+Sola et al. (2025) -- https://arxiv.org/abs/2503.18480
+Sola et al. (2025) -- https://arxiv.org/abs/2508.02154
+Desmons et al. (2025) -- https://arxiv.org/abs/2509.18274

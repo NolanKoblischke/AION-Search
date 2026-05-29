@@ -142,49 +142,44 @@ async def wait_for_file_processing(
     logger.info(f"Waiting for {len(file_ids)} files to be processed by OpenAI...")
     
     check_count = 0
-    with tqdm(total=len(file_ids), desc="Files processing", unit="files") as pbar:
-        processed_count = 0
-        
-        while True:
-            check_start = time.time()
-            all_processed = True
-            pending_count = 0
-            
-            for i, fid in enumerate(file_ids):
-                try:
-                    file_obj = await client.files.retrieve(fid)
-                    if hasattr(file_obj, 'status') and file_obj.status != 'processed':
-                        all_processed = False
-                        pending_count += 1
-                        
-                    # Log progress every 10 files
-                    if (i + 1) % 10 == 0:
-                        logger.debug(f"  Checked {i+1}/{len(file_ids)} files...")
-                        
-                except Exception as e:
-                    logger.error(f"  Error checking file {fid}: {e}")
-            
-            check_time = time.time() - check_start
-            check_count += 1
-            
-            # Update progress bar
-            new_processed_count = len(file_ids) - pending_count
-            if new_processed_count > processed_count:
-                pbar.update(new_processed_count - processed_count)
-                processed_count = new_processed_count
-            
-            if not all_processed:
-                elapsed = time.time() - start_time
-                pbar.set_postfix({"pending": pending_count, "elapsed": f"{elapsed:.1f}s"})
-                pbar.refresh()  # Force refresh to ensure update is displayed
-                logger.debug(f"  Check #{check_count} ({check_time:.1f}s): {processed_count}/{len(file_ids)} files processed")
-            
-            if all_processed:
-                total_time = time.time() - start_time
-                logger.info(f"All {len(file_ids)} files processed in {total_time:.1f}s ({total_time/60:.1f} min)")
-                break
-                
-            await asyncio.sleep(check_interval)
+    processed_count = 0
+
+    while True:
+        check_start = time.time()
+        all_processed = True
+        pending_count = 0
+
+        for i, fid in enumerate(file_ids):
+            try:
+                file_obj = await client.files.retrieve(fid)
+                if hasattr(file_obj, 'status') and file_obj.status != 'processed':
+                    all_processed = False
+                    pending_count += 1
+
+                if (i + 1) % 100 == 0:
+                    logger.debug(f"  Checked {i+1}/{len(file_ids)} files...")
+
+            except Exception as e:
+                logger.error(f"  Error checking file {fid}: {e}")
+
+        check_time = time.time() - check_start
+        check_count += 1
+        processed_count = len(file_ids) - pending_count
+
+        elapsed = time.time() - start_time
+        logger.info(
+            f"File status check #{check_count} ({check_time:.1f}s): "
+            f"{processed_count}/{len(file_ids)} processed, "
+            f"{pending_count} pending, elapsed {elapsed:.1f}s"
+        )
+
+        if all_processed:
+            logger.info(
+                f"All {len(file_ids)} files processed in {elapsed:.1f}s ({elapsed/60:.1f} min)"
+            )
+            break
+
+        await asyncio.sleep(check_interval)
 
 
 class OpenAIBatchProcessor:

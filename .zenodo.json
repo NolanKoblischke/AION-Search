@@ -1,0 +1,61 @@
+{
+  "title": "AION-Search research code for semantic search of galaxy images",
+  "upload_type": "software",
+  "description": "Research code and reproducibility materials for the AION-Search paper, including paper-facing experiment code for GalaxyBench, retrieval, Galaxy10, HSC lens re-ranking, and stream-catalog comparison.",
+  "creators": [
+    {
+      "name": "Koblischke, Nolan",
+      "affiliation": "University of Toronto",
+      "orcid": "0000-0001-5396-5824"
+    },
+    {
+      "name": "Parker, Liam",
+      "affiliation": "University of California, Berkeley",
+      "orcid": "0009-0007-4952-1674"
+    },
+    {
+      "name": "Lanusse, Francois",
+      "affiliation": "Universite Paris-Saclay",
+      "orcid": "0000-0001-7956-0542"
+    },
+    {
+      "name": "Bovy, Jo",
+      "affiliation": "University of Toronto",
+      "orcid": "0000-0001-6855-442X"
+    },
+    {
+      "name": "Espejo, Irina",
+      "affiliation": "New York University",
+      "orcid": "0000-0002-1790-7536"
+    },
+    {
+      "name": "Ho, Shirley",
+      "affiliation": "Flatiron Institute",
+      "orcid": "0000-0002-1068-160X"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "astronomy",
+    "semantic search",
+    "galaxy images",
+    "vision-language models",
+    "AION-Search",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.48550/arXiv.2512.11982",
+      "relation": "isSupplementTo",
+      "scheme": "doi",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "https://github.com/NolanKoblischke/AION-Search",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ]
+}

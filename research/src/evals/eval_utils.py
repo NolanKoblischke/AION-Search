@@ -12,7 +12,6 @@ from dataclasses import dataclass
 from typing import Dict, List, Tuple, Optional, Callable, Union
 from openai import OpenAI
 import os
-import json
 from datetime import datetime
 from tqdm import tqdm
 import time
@@ -114,31 +113,6 @@ def setup_logging(log_level: str = "INFO", log_file: Optional[str] = None) -> lo
     logging.getLogger("httpcore").setLevel(logging.WARNING)
     
     return logging.getLogger(__name__)
-
-
-def load_eval_data_from_hdf5(embeddings_path: str) -> Tuple[List[str], Dict[str, Union[str, float]]]:
-    """
-    Load evaluation data directly from HDF5 file.
-    
-    Returns:
-        - List of object IDs
-        - Mapping of object_id to grade/score
-    """
-    with h5py.File(embeddings_path, 'r') as f:
-        # Load object IDs
-        object_ids = f['object_id'][:]
-        if isinstance(object_ids[0], bytes):
-            object_ids = [oid.decode('utf-8') for oid in object_ids]
-        
-        # Load evaluation grades
-        eval_grades = f['eval_grade'][:]
-        if isinstance(eval_grades[0], bytes):
-            eval_grades = [grade.decode('utf-8') for grade in eval_grades]
-        
-        # Create grade mapping
-        grade_mapping = dict(zip(object_ids, eval_grades))
-        
-    return object_ids, grade_mapping
 
 
 def load_aion_embeddings(
@@ -270,9 +244,6 @@ def compute_ndcg_at_k(relevance_scores: np.ndarray, k: int, all_relevance_scores
     return dcg_k / ideal_dcg if ideal_dcg > 0 else 0.0
 
 
-
-
-
 def evaluate_retrieval_with_model(
     model,
     eval_name: str,
@@ -285,106 +256,90 @@ def evaluate_retrieval_with_model(
     cached_baselines: Optional[Dict[str, Dict[str, float]]] = None
 ) -> Dict[str, float]:
     """
-    Evaluate a model on a specific evaluation task.
-    
+    Evaluate a trained projection model on a configured retrieval task.
+
     Args:
-        model: Trained model with image_projector and text_projector
-        eval_name: Name of evaluation ('lens_legacy', 'lens_hsc', 'merger', 'spiral')
-        device: Device to use for computation
-        use_mean_embeddings: Whether to use mean-pooled embeddings
-        batch_size: Batch size for projection
-        k_values: List of k values to evaluate
-        aion_model: AION model size
-        logger: Optional logger instance
-        cached_baselines: Optional dict of cached baseline scores per evaluation
-    
+        model: Trained model with image_projector and text_projector.
+        eval_name: Evaluation name from EVAL_CONFIGS.
+        device: Device to use for computation.
+        use_mean_embeddings: Whether to use mean-pooled AION embeddings.
+        batch_size: Batch size for projection.
+        k_values: List of k values to evaluate.
+        aion_model: AION model size.
+        logger: Optional logger instance.
+        cached_baselines: Optional dict of cached baseline scores per evaluation.
+
     Returns:
-        Dictionary with evaluation metrics. If baselines were computed (not cached),
-        includes '_baseline_cache' key with computed baselines.
+        Dictionary with evaluation metrics. If baselines were computed rather than
+        reused, includes a temporary '_baseline_cache' key with those baselines.
     """
     if logger is None:
         logger = logging.getLogger(__name__)
-    
-    # Get evaluation configuration
+
     if eval_name not in EVAL_CONFIGS:
         raise ValueError(f"Unknown evaluation: {eval_name}")
-    
+
     eval_config = EVAL_CONFIGS[eval_name]
-    
     embeddings_path = eval_config.embeddings_path
-    
-    # Load AION embeddings and evaluation data
+
     logger.info(f"Loading {eval_name} evaluation data from {embeddings_path}...")
     object_ids, aion_embeddings, eval_grades = load_aion_embeddings(
         embeddings_path,
         use_mean=use_mean_embeddings,
         aion_model=aion_model
     )
-    
+
     logger.info(f"Loaded {len(object_ids)} total objects")
-    
-    # Generate query embedding with caching
-    # Derive cache directory from embeddings path
+
     embeddings_dir = Path(eval_config.embeddings_path).parent
     cache_dir = embeddings_dir / "query_embeddings_cache"
-    
+
     logger.info(f"Generating query embedding for: '{eval_config.query_text}'")
     query_embedding = generate_query_embedding(eval_config.query_text, cache_dir=cache_dir)
-    
-    # Project query through model
+
     query_tensor = torch.tensor(query_embedding, dtype=torch.float32).unsqueeze(0).to(device)
     with torch.no_grad():
         query_features = model.text_projector(query_tensor)
     query_features = query_features.cpu().numpy()
-    
-    # Project AION embeddings through model in batches
+
     all_features = []
     model.eval()
-    
+
     with torch.no_grad():
         for i in range(0, len(aion_embeddings), batch_size):
-            batch = aion_embeddings[i:i+batch_size]
+            batch = aion_embeddings[i:i + batch_size]
             batch_tensor = torch.tensor(batch, dtype=torch.float32).to(device)
             features = model.image_projector(batch_tensor)
             all_features.append(features.cpu().numpy())
-    
+
     image_features = np.vstack(all_features)
-    
-    # Compute similarities and rank
+
     similarities = image_features @ query_features.T
     similarities = similarities.squeeze()
     top_indices = np.argsort(similarities)[::-1]
-    
-    # Compute metrics for each k value
+
     results = {}
     max_k = max(k_values)
-    
-    # Get relevance scores for all retrieved objects
+
     relevance_scores = []
     for idx in top_indices[:max_k]:
         grade = eval_grades[idx]
         weight = eval_config.grade_converter(grade)
         relevance_scores.append(weight)
-    
+
     relevance_scores = np.array(relevance_scores)
-    
-    # Get all relevance scores in the dataset for baselines
+
     all_relevance_scores = np.array([eval_config.grade_converter(grade) for grade in eval_grades])
-    
-    # Track if we need to compute baselines
+
     need_baselines = cached_baselines is None or eval_name not in cached_baselines
     baseline_cache = {}
-    
-    # Compute metrics for each k
+
     for k in k_values:
         if k <= len(relevance_scores):
-            # Compute nDCG@k
             ndcg = compute_ndcg_at_k(relevance_scores[:k], k, all_relevance_scores)
             results[f'ndcg@{k}'] = ndcg
-            
-            # Use cached baselines or compute them
+
             if need_baselines:
-                # Compute random baselines
                 from numpy.random import default_rng
                 rng = default_rng(42)
                 rand_ndcgs = []
@@ -395,112 +350,32 @@ def evaluate_retrieval_with_model(
                     rand_ndcgs.append(rand_ndcg)
                 random_baseline = float(np.median(rand_ndcgs))
                 baseline_cache[f'random_ndcg@{k}'] = random_baseline
-                
-                # Compute ideal baselines
+
                 sorted_relevance = np.sort(all_relevance_scores)[::-1]
                 ideal_relevance_k = sorted_relevance[:k]
                 ideal_baseline = compute_ndcg_at_k(ideal_relevance_k, k, all_relevance_scores)
                 baseline_cache[f'ideal_ndcg@{k}'] = ideal_baseline
-                
+
                 results[f'random_ndcg@{k}'] = random_baseline
                 results[f'ideal_ndcg@{k}'] = ideal_baseline
             else:
-                # Use cached baselines
                 results[f'random_ndcg@{k}'] = cached_baselines[eval_name][f'random_ndcg@{k}']
                 results[f'ideal_ndcg@{k}'] = cached_baselines[eval_name][f'ideal_ndcg@{k}']
-    
-    # General statistics
+
     results['total_objects'] = len(object_ids)
-    
-    # Log key metrics
+
     logger.info(f"{eval_name} evaluation results:")
     for k in k_values:
         if f'ndcg@{k}' in results:
             logger.info(f"  nDCG@{k}: {results[f'ndcg@{k}']:.4f}")
-    
-    # Include baseline cache in results if we computed it
+
     if need_baselines and baseline_cache:
         results['_baseline_cache'] = baseline_cache
-    
+
     return results
 
 
 
-
-def round_numeric_values(obj, decimals=3):
-    """
-    Recursively round all numeric values in a nested structure to specified decimal places.
-    
-    Args:
-        obj: The object to process (dict, list, or primitive)
-        decimals: Number of decimal places to round to
-    
-    Returns:
-        The object with all numeric values rounded
-    """
-    if isinstance(obj, dict):
-        return {k: round_numeric_values(v, decimals) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [round_numeric_values(v, decimals) for v in obj]
-    elif isinstance(obj, (float, np.float32, np.float64)):
-        return round(float(obj), decimals)
-    elif isinstance(obj, (int, np.integer)):
-        return int(obj)
-    else:
-        return obj
-
-
-def append_eval_summary(
-    output_dir: Union[str, Path],
-    eval_name: str,
-    model_name: str,
-    metrics: Dict[str, float],
-    run_name: Optional[str] = None,
-    additional_info: Optional[Dict] = None
-) -> Path:
-    """
-    Append evaluation results to summary JSONL file.
-    
-    Args:
-        output_dir: Output directory for results
-        eval_name: Name of evaluation
-        model_name: Name of model
-        metrics: Evaluation metrics
-        run_name: Optional run name
-        additional_info: Optional additional information
-    
-    Returns:
-        Path to summary file
-    """
-    output_dir = Path(output_dir)
-    output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Use a single eval_summary.jsonl file for all evaluations
-    summary_file = output_dir / 'eval_summary.jsonl'
-    
-    # Round all numeric values in metrics to 3 decimal places
-    rounded_metrics = round_numeric_values(metrics)
-    
-    # Prepare record
-    record = {
-        'timestamp': datetime.now().isoformat(),
-        'eval_name': eval_name,
-        'model': model_name,
-        'metrics': rounded_metrics
-    }
-    
-    if run_name:
-        record['run_name'] = run_name
-    
-    if additional_info:
-        # Also round numeric values in additional_info
-        record.update(round_numeric_values(additional_info))
-    
-    # Append to JSONL file
-    with open(summary_file, 'a') as f:
-        f.write(json.dumps(record) + '\n')
-    
-    return summary_file
 
 
 def process_legacy_batch(images, model, codec_manager, device):

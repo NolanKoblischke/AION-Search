@@ -50,19 +50,8 @@ class GalaxyZooConfig(EvalConfig):
             {"value": "volunteer-path-length-short", "label": "Path Length ↑"}
         ]
 
-    def get_comparison_function_name(self) -> str:
-        """Get the name of the JavaScript function used to create comparison displays."""
-        return "createDecisionTreeComparison"
-    
-    @property
-    def js_file(self) -> str:
-        """Path to the external JavaScript file for Galaxy Zoo config."""
-        return "display_config/galaxyzoo.js"
-    
     def get_comparison_javascript(self) -> str:
-        """Get JavaScript code for creating Galaxy Zoo decision tree comparison displays."""
-        # This method is kept for backward compatibility but will be replaced
-        # by loading from the external JS file
+        """Optional JavaScript code for creating Galaxy Zoo decision tree displays."""
         return ""
 
 

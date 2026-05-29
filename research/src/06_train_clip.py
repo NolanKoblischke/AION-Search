@@ -1,5 +1,6 @@
 """
 Train CLIP model for galaxy alignment using pre-computed AION embeddings.
+This script supports evaluation on all datasets defined in EVAL_CONFIGS.
 """
 
 import argparse
@@ -15,6 +16,7 @@ import wandb
 
 from src.clip.utils.logging_utils import setup_logging
 from src.clip.utils.data_loader import create_unified_multi_text_loaders
+from src.evals.eval_utils import evaluate_retrieval_with_model, EVAL_CONFIGS
 from src.clip.models.clip_model import AIONSearchClipModel
 
 
@@ -34,7 +36,11 @@ def train_clip_model(
     gradient_clip_max_norm: float = 1.0,
     use_mean_embeddings: bool = True,
     warmup_epochs: int = 10,  # Number of epochs for linear warmup
+    # Evaluation parameters
+    eval_frequency: int = 10,
+    eval_names: list = None,  # List of eval names from EVAL_CONFIGS to run
     save_checkpoint_frequency: int = 10,
+    aion_model: str = 'aion-base',
     # Multi-text parameters
     use_multi_text: bool = False,
     text_sampling_strategy: str = "random",
@@ -151,9 +157,13 @@ def train_clip_model(
     
     # Training state
     best_val_loss = float('inf')
+    best_eval_scores = {}  # Track best scores for each evaluation
+    best_avg_ndcg1000 = 0.0  # Track best average ndcg@1000 across all evals
+    baseline_cache = {}  # Cache for random and ideal baselines per evaluation
     history = {
         'train_losses': [],
-        'val_losses': []
+        'val_losses': [],
+        'eval_metrics': {eval_name: [] for eval_name in (eval_names or [])}
     }
     
     # Create checkpoints directory
@@ -253,33 +263,141 @@ def train_clip_model(
         # Log epoch results
         logger.info(f"Epoch {epoch+1} - Train Loss: {avg_train_loss:.4f}, Val Loss: {avg_val_loss:.4f}")
 
+        # Track best val loss for logging purposes
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+
         # Step the scheduler
         scheduler.step()
         current_lr = scheduler.get_last_lr()[0]
         logger.info(f"  Learning rate: {current_lr:.2e}")
 
-        # Save best model based on validation loss
-        if avg_val_loss < best_val_loss:
-            best_val_loss = avg_val_loss
-            best_model_path = output_dir / "best_clip_model.pt"
-            checkpoint = {
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'scheduler_state_dict': scheduler.state_dict(),
-                'best_val_loss': best_val_loss,
-                'model_config': {
-                    'image_input_dim': aion_dim,
-                    'text_input_dim': text_dim,
-                    'embedding_dim': embedding_dim,
-                    'use_mean_embeddings': use_mean_embeddings,
-                    'full_aion_shape': aion_embedding_shape if not use_mean_embeddings else None
-                },
-                'history': history
-            }
-            torch.save(checkpoint, best_model_path)
-            logger.info(f"  Saved best model with validation loss: {best_val_loss:.4f}")
-        
+        # Periodic evaluation
+        log_dict = {
+            'epoch': epoch + 1,
+            'train_loss': avg_train_loss,
+            'val_loss': avg_val_loss,
+            'learning_rate': current_lr
+        }
+
+        if eval_names and (epoch + 1) % eval_frequency == 0:
+            logger.info(f"\nRunning evaluations at epoch {epoch + 1}...")
+
+            for eval_name in eval_names:
+                # Check if eval_name exists in EVAL_CONFIGS
+                if eval_name not in EVAL_CONFIGS:
+                    logger.warning(f"Evaluation '{eval_name}' not found in EVAL_CONFIGS. Available: {list(EVAL_CONFIGS.keys())}")
+                    continue
+
+                try:
+                    logger.info(f"Evaluating {eval_name}...")
+                    metrics = evaluate_retrieval_with_model(
+                        model=model,
+                        eval_name=eval_name,
+                        device=device,
+                        use_mean_embeddings=use_mean_embeddings,
+                        aion_model=aion_model,
+                        logger=logger,
+                        cached_baselines=baseline_cache
+                    )
+
+                    # Extract and cache baselines if this is the first evaluation
+                    if '_baseline_cache' in metrics:
+                        if eval_name not in baseline_cache:
+                            baseline_cache[eval_name] = metrics['_baseline_cache']
+                            logger.info(f"  Cached baselines for {eval_name}: {list(metrics['_baseline_cache'].keys())}")
+                        # Remove from metrics before storing in history
+                        del metrics['_baseline_cache']
+
+                    # Store metrics in history
+                    history['eval_metrics'][eval_name].append({
+                        'epoch': epoch + 1,
+                        'metrics': metrics
+                    })
+
+                    # Track best scores using ndcg@1000 as primary metric
+                    eval_score = metrics.get('ndcg@1000', 0.0)
+                    if eval_name not in best_eval_scores or eval_score > best_eval_scores[eval_name]:
+                        best_eval_scores[eval_name] = eval_score
+
+                        # Save best model for this evaluation
+                        best_eval_path = output_dir / f"best_{eval_name}_model.pt"
+                        checkpoint = {
+                            'epoch': epoch,
+                            'model_state_dict': model.state_dict(),
+                            'optimizer_state_dict': optimizer.state_dict(),
+                            'scheduler_state_dict': scheduler.state_dict(),
+                            'best_score': eval_score,
+                            'eval_metrics': metrics,
+                            'model_config': {
+                                'image_input_dim': aion_dim,
+                                'text_input_dim': text_dim,
+                                'embedding_dim': embedding_dim,
+                                'use_mean_embeddings': use_mean_embeddings,
+                                'full_aion_shape': aion_embedding_shape if not use_mean_embeddings else None
+                            },
+                            'history': history
+                        }
+                        torch.save(checkpoint, best_eval_path)
+                        logger.info(f"  Saved best {eval_name} model with ndcg@1000: {eval_score:.4f}")
+
+                    # Add key metrics to wandb log
+                    for metric_name, value in metrics.items():
+                        if isinstance(value, (int, float)):
+                            # Track specific metrics requested: ndcg@10, ndcg@1000
+                            if metric_name in ['ndcg@10', 'ndcg@1000']:
+                                log_dict[f'{eval_name}_{metric_name}'] = value
+
+                except Exception as e:
+                    logger.error(f"Evaluation {eval_name} failed: {e}")
+                    import traceback
+                    logger.error(traceback.format_exc())
+
+            # Log summary of tracked metrics
+            tracked_metrics = [f'{eval_name}_{metric}' for eval_name in eval_names
+                             for metric in ['ndcg@10', 'ndcg@1000']
+                             if f'{eval_name}_{metric}' in log_dict]
+            if tracked_metrics:
+                logger.info(f"Tracked metrics for wandb: {tracked_metrics}")
+
+            # Calculate average ndcg@1000 across all evaluations
+            current_ndcg1000_scores = []
+            for eval_name in eval_names:
+                if eval_name in history['eval_metrics'] and history['eval_metrics'][eval_name]:
+                    latest_metrics = history['eval_metrics'][eval_name][-1]['metrics']
+                    if 'ndcg@1000' in latest_metrics:
+                        current_ndcg1000_scores.append(latest_metrics['ndcg@1000'])
+
+            if current_ndcg1000_scores:
+                avg_ndcg1000 = sum(current_ndcg1000_scores) / len(current_ndcg1000_scores)
+                logger.info(f"Average ndcg@1000 across all evaluations: {avg_ndcg1000:.4f}")
+
+                # Add average ndcg@1000 to wandb log
+                log_dict['avg_ndcg@1000'] = avg_ndcg1000
+
+                # Save best model based on average ndcg@1000
+                if avg_ndcg1000 > best_avg_ndcg1000:
+                    best_avg_ndcg1000 = avg_ndcg1000
+                    best_model_path = output_dir / "best_clip_model.pt"
+                    checkpoint = {
+                        'epoch': epoch,
+                        'model_state_dict': model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'scheduler_state_dict': scheduler.state_dict(),
+                        'best_avg_ndcg1000': best_avg_ndcg1000,
+                        'individual_ndcg1000_scores': dict(zip(eval_names, current_ndcg1000_scores)),
+                        'model_config': {
+                            'image_input_dim': aion_dim,
+                            'text_input_dim': text_dim,
+                            'embedding_dim': embedding_dim,
+                            'use_mean_embeddings': use_mean_embeddings,
+                            'full_aion_shape': aion_embedding_shape if not use_mean_embeddings else None
+                        },
+                        'history': history
+                    }
+                    torch.save(checkpoint, best_model_path)
+                    logger.info(f"  Saved best model with average ndcg@1000: {best_avg_ndcg1000:.4f}")
+
         # Save periodic checkpoint
         if (epoch + 1) % save_checkpoint_frequency == 0:
             checkpoint_path = checkpoints_dir / f"checkpoint_epoch_{epoch+1}.pt"
@@ -303,12 +421,7 @@ def train_clip_model(
 
         # Log to wandb
         if wandb.run:
-            wandb.log({
-                'epoch': epoch + 1,
-                'train_loss': avg_train_loss,
-                'val_loss': avg_val_loss,
-                'learning_rate': current_lr
-            })
+            wandb.log(log_dict)
     
     # Save final model
     final_model_path = output_dir / "final_clip_model.pt"
@@ -333,10 +446,14 @@ def train_clip_model(
     return {
         'model_path': final_model_path,
         'best_model_path': output_dir / 'best_clip_model.pt',
+        'best_eval_models': {name: output_dir / f'best_{name}_model.pt'
+                           for name in best_eval_scores},
         'checkpoint_dir': output_dir,
         'checkpoints_dir': checkpoints_dir,
         'history': history,
-        'best_val_loss': best_val_loss
+        'best_val_loss': best_val_loss,
+        'best_eval_scores': best_eval_scores,
+        'best_avg_ndcg1000': best_avg_ndcg1000
     }
 
 
@@ -373,6 +490,9 @@ def main():
     parser.add_argument("--use-mean-embeddings", action=argparse.BooleanOptionalAction,
                        default=True,
                        help="Use mean-pooled AION embeddings")
+    parser.add_argument("--aion-model", type=str, default='aion-base',
+                       choices=['aion-base', 'aion-large', 'aion-xlarge'],
+                       help="AION model size")
 
     # Scheduler config
     parser.add_argument("--scheduler-t0", type=int, default=10,
@@ -385,6 +505,13 @@ def main():
                        help="Maximum norm for gradient clipping")
     parser.add_argument("--warmup-epochs", type=int, default=10,
                        help="Number of epochs for linear warmup")
+
+    # Evaluation config
+    parser.add_argument("--eval-frequency", type=int, default=5,
+                       help="Evaluate every N epochs")
+    parser.add_argument("--eval-names", type=str, nargs='+',
+                       default=list(EVAL_CONFIGS.keys()),
+                       help="Evaluation names to run from EVAL_CONFIGS")
     parser.add_argument("--save-checkpoint-frequency", type=int, default=5,
                        help="Save checkpoint every N epochs")
 
@@ -460,6 +587,16 @@ def main():
     if args.config:
         logger.info(f"Loaded config from: {args.config}")
 
+    # Validate evaluation names
+    invalid_evals = set(args.eval_names) - set(EVAL_CONFIGS.keys())
+    if invalid_evals:
+        logger.warning(f"Invalid evaluation names: {invalid_evals}")
+        logger.info(f"Available evaluations: {list(EVAL_CONFIGS.keys())}")
+        # Filter out invalid names
+        args.eval_names = [name for name in args.eval_names if name in EVAL_CONFIGS]
+
+    logger.info(f"Running evaluations: {args.eval_names}")
+
     # Save config to output directory for reproducibility
     config_dict = vars(args)
     config_dict['output_dir'] = str(output_dir)
@@ -493,7 +630,11 @@ def main():
         gradient_clip_max_norm=args.gradient_clip_max_norm,
         use_mean_embeddings=args.use_mean_embeddings,
         warmup_epochs=args.warmup_epochs,
+        # Evaluation parameters
+        eval_frequency=args.eval_frequency,
+        eval_names=args.eval_names,
         save_checkpoint_frequency=args.save_checkpoint_frequency,
+        aion_model=args.aion_model,
         # Multi-text parameters
         use_multi_text=args.use_multi_text,
         text_sampling_strategy=args.text_sampling_strategy,
@@ -507,9 +648,16 @@ def main():
     print(f"\nTraining completed!")
     print(f"Final model saved to: {results['model_path']}")
     print(f"Best model saved to: {results['best_model_path']}")
+    print(f"Best average ndcg@1000 across all evaluations: {results['best_avg_ndcg1000']:.4f}")
+    if results['best_eval_scores']:
+        print("\nBest evaluation scores:")
+        for eval_name, score in results['best_eval_scores'].items():
+            print(f"  {eval_name}: ndcg@1000 = {score:.4f}")
     print(f"Best validation loss: {results['best_val_loss']:.4f}")
     print(f"Final train loss: {results['history']['train_losses'][-1]:.4f}")
     print(f"Final val loss: {results['history']['val_losses'][-1]:.4f}")
+    print(f"\nEvaluations tracked: {args.eval_names}")
+    print(f"Metrics tracked per evaluation: nDCG@10, nDCG@1000")
 
     if wandb.run is not None:
         wandb.finish()

@@ -1,0 +1,17 @@
+Lens Evaluation Dataset Summary
+==============================
+
+FITS file: lens_image_catalog_part_000.fits
+Total objects in FITS: 100069
+Random seed: 42
+Target lenses: 200
+Target non-lenses: 20000
+
+Evaluation dataset:
+  Total objects: 20200
+  Lens objects: 200
+    Grade A: 15 (7.5%)
+    Grade B: 76 (38.0%)
+    Grade C: 109 (54.5%)
+  Non-lens objects: 20000 (sampled from 99820)
+    33 objects removed for being within 5 arcsec of known lenses

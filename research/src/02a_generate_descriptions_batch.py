@@ -350,7 +350,7 @@ def main():
                        help='Input HDF5 file path')
     parser.add_argument('--model', type=str, default='gpt-4.1-mini',
                        help='Model ID (e.g., gpt-4.1-mini)')
-    parser.add_argument('--prompt', type=str, default='src/prompts/general_promptv5.txt',
+    parser.add_argument('--prompt', type=str, default='src/prompts/general_promptv4.txt',
                        help='Prompt file path')
     parser.add_argument('--plotstyle', type=str, default='src/plotting_scripts/default_plot.py',
                        help='Plotting script file path')

@@ -6,14 +6,14 @@ from datetime import datetime
 import logging
 from logging.handlers import RotatingFileHandler
 
-TARGET_HSC_GALAXIES = 100_000
+TARGET_HSC_GALAXIES = 100_000 # Note that in the end we used 120k from HSC and 180k from Legacy which came from two different runs of this 01 step.
 TARGET_LEGACY_GALAXIES = 100_000
 MAX_GALAXIES_PER_HEALPIX = 10_000 # Specified so that we spread our training set over many healpixels
 OUTPUT_DIR = Path("data/processed")
 OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 
-HSC_BASE_PATH = Path("/AstroPile_v1/hsc/pdr3_wide_21")
-LEGACY_BASE_PATH = Path("/workspace/data/MMU/legacysurvey/dr10_south_21")
+HSC_BASE_PATH = Path("hsc/pdr3_wide_21")
+LEGACY_BASE_PATH = Path("MMU/legacysurvey/dr10_south_21")
 
 # Set up logging - will be configured in main()
 logger = logging.getLogger(__name__)

@@ -1,27 +1,52 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite the paper below."
-title: "AION-Search"
+message: "If you use this software, please cite the software record and the paper below."
+title: "AION-Search research code for semantic search of galaxy images"
 type: software
 authors:
   - family-names: Koblischke
     given-names: Nolan
+    orcid: "https://orcid.org/0000-0001-5396-5824"
+  - family-names: Parker
+    given-names: Liam
+    orcid: "https://orcid.org/0009-0007-4952-1674"
+  - family-names: Lanusse
+    given-names: Francois
+    orcid: "https://orcid.org/0000-0001-7956-0542"
+  - family-names: Bovy
+    given-names: Jo
+    orcid: "https://orcid.org/0000-0001-6855-442X"
+  - family-names: Espejo
+    given-names: Irina
+    orcid: "https://orcid.org/0000-0002-1790-7536"
+  - family-names: Ho
+    given-names: Shirley
+    orcid: "https://orcid.org/0000-0002-1068-160X"
+repository-code: "https://github.com/NolanKoblischke/AION-Search"
+url: "https://github.com/NolanKoblischke/AION-Search"
+license: MIT
 
 preferred-citation:
   type: article
-  title: "Semantic search for 100M+ galaxy images using AI-generated captions"
+  title: "Semantic Search for 100M+ Galaxy Images Using AI-Generated Captions"
   authors:
     - family-names: Koblischke
       given-names: Nolan
+      orcid: "https://orcid.org/0000-0001-5396-5824"
     - family-names: Parker
       given-names: Liam
+      orcid: "https://orcid.org/0009-0007-4952-1674"
     - family-names: Lanusse
       given-names: Francois
-    - family-names: Espejo Morales
-      given-names: Irina
+      orcid: "https://orcid.org/0000-0001-7956-0542"
     - family-names: Bovy
       given-names: Jo
+      orcid: "https://orcid.org/0000-0001-6855-442X"
+    - family-names: Espejo
+      given-names: Irina
+      orcid: "https://orcid.org/0000-0002-1790-7536"
     - family-names: Ho
       given-names: Shirley
+      orcid: "https://orcid.org/0000-0002-1068-160X"
   doi: 10.48550/arXiv.2512.11982
   url: "https://arxiv.org/abs/2512.11982"
   journal: "arXiv"
