@@ -1,7 +1,7 @@
 {
-  "title": "AION-Search research code for semantic search of galaxy images",
+  "title": "AION-Search: Semantic search for galaxy images using AI-generated captions",
   "upload_type": "software",
-  "description": "Research code and reproducibility materials for the AION-Search paper, including paper-facing experiment code for GalaxyBench, retrieval, Galaxy10, HSC lens re-ranking, and stream-catalog comparison.",
+  "description": "Research code and reproducibility materials for the AION-Search paper.",
   "creators": [
     {
       "name": "Koblischke, Nolan",
