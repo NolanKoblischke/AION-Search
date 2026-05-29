@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Citation](https://img.shields.io/badge/Citation-BibTeX-orange.svg)](#citation)
 
-AION-Search is a text-based search engine for galaxy images trained from GPT-4.1-mini descriptions and summaries of HSC and Legacy Survey galaxies. The released model uses the 255,948-galaxy training subset described in the paper after benchmark-overlap filtering.
+AION-Search is a text-based search engine for galaxy images trained from GPT-4.1-mini descriptions and summaries of HSC and Legacy Survey galaxies.
 
 🔭 **Use AION-Search now!**  
 Try the live web demo: [AION-Search App](https://astronolan-aion-search.hf.space/)
